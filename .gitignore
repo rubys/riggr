@@ -1,4 +1,4 @@
 db/blog
 db/*.sqlite3
-log
-tmp
+log/*.log
+tmp/**/*
