@@ -7,7 +7,7 @@ class Comment < ActiveRecord::Base
   end
 
   def after_find
-    open("db/blog/#{filename}") do |file|
+    open("#{Post::FILESTORE}/#{filename}") do |file|
       @title = file.gets.chomp
       @content = file.read
     end

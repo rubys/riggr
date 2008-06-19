@@ -1,9 +1,10 @@
 class Post < ActiveRecord::Base
   has_many :comments
   attr_accessor :title, :summary, :svg, :content
+  FILESTORE = "db/blog/#{RAILS_ENV}"
 
   def after_find
-    open("db/blog/#{filename}") do |file|
+    open("#{Post::FILESTORE}/#{filename}") do |file|
       @title = file.gets.chomp
       @content = file.read
       @content.sub! /^<div class="excerpt".*<\/div>\n?/m do |summary|
