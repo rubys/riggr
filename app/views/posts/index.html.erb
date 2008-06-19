@@ -6,6 +6,7 @@
     <th>Slug</th>
     <th>Alt</th>
     <th>Title</th>
+    <th>Actions</th>
   </tr>
 
 <% for post in @posts %>
@@ -14,9 +15,9 @@
     <td><%=h post.slug %></td>
     <td><%=h post.alt %></td>
     <td><%=h post.title %></td>
-    <td><%= link_to 'Show', post %></td>
-    <td><%= link_to 'Edit', edit_post_path(post) %></td>
-    <td><%= link_to 'Destroy', post, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Show', post %>
+    <%= link_to 'Edit', edit_post_path(post) %>
+    <%= link_to 'Destroy', post, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
