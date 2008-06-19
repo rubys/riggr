@@ -1,0 +1,576 @@
+
+/* --------------- global items --------------- */
+
+html {
+  background: #fff;
+  /* font-family: verdana, georgia, times, "times new roman", serif; */
+  font:normal medium 'Gill Sans','Gill Sans MT',Verdana,sans-serif
+}
+
+body {
+  margin-left : 0; 
+  margin-right : 0; 
+  padding : 0; 
+}
+
+
+/* IE svg */
+div { *background-color: #EEF; }
+span { *background-color: #EEF; }
+
+h2 {
+  background: #039;
+  color: #FE1;
+  font-size: 100%;
+  font-weight: bold;
+  clear: both;
+  margin: 0.7em 0.7em 0.1em 0.7em;
+  padding: .25em 1em .25em 1em;
+  -webkit-border-radius: 1em;
+  -khtml-border-radius: 1em;
+  -moz-border-radius: 1em;
+  -o-border-radius: 1em;
+  border-radius: 1em;
+}
+
+h2 time {
+  display: block;
+  font-size:small;
+  text-align: right;
+}
+
+h2 a {
+  color: #FFF;
+}
+
+article header {
+  font-size: 120%;
+  margin-top: 1.4em;
+  margin-left: -0.2em;
+  margin-bottom: 0.8em;
+  text-indent: -28px;
+  font-variant: small-caps;
+  display: block;
+  clear: both;
+}
+
+article header h3 {
+  margin: 0;
+}
+
+article header hr {
+  display: block;
+  background-color: #039;
+  margin: 0;
+  margin-left: 2px;
+}
+
+article header time {
+  font-size:small;
+  font-weight: normal;
+  display: block;
+  text-align: right
+}
+
+h3:before {
+  content: url("/images/intertwingly.png");
+  padding-right: 0.5em;
+}
+
+h3[id]:hover:after {
+  content: " #" attr(id); 
+  font-size: 50%;
+  color: #CCD;
+  text-decoration: none;
+  font-variant: normal;
+}
+
+hr {
+  display: none;
+}
+
+input, textarea {
+  color: #000;
+  background-color: #DEF;
+  padding: 2px;
+  -webkit-border-radius: 1em;
+  -khtml-border-radius: 1em;
+  -moz-border-radius: 1em;
+  -o-border-radius: 1em;
+  border-radius: 1em;
+}
+
+p {
+  margin-top: 0;
+}
+
+/* ------------------- links ------------------ */
+
+a {
+  color: #049;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+a:link {
+  text-decoration: none;
+}
+
+a:visited {
+  color: #409;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a.flamebait {
+  font-weight: normal;
+  text-decoration: line-through;
+}
+
+del.flamebait a {
+  text-decoration: line-through;
+  font-weight: normal;
+  background-color: transparent;
+}
+
+del.flamebait a:hover {
+  text-decoration: none;
+}
+
+a[rel~="nofollow"]:before {
+  content: url("/images/nofollow.png");
+}
+
+a.openid:before {
+  content: url('/images/openid.png');
+}
+
+/* ------------------ images ------------------ */
+
+img {
+  border: 0;
+}
+
+img.floatright {
+  padding-left: 1em;
+  float: right;
+}
+
+img.floatleft {
+  float: left;
+  padding-right: 1em;
+  padding-bottom: 0.2em;
+}
+
+
+/* ------------------ banner ------------------ */
+
+body > header h1 a {
+  text-decoration: none;
+  color : #FE1; 
+}
+
+body > header h1 a:hover {
+  text-decoration: none;
+}
+
+body > header h1 a:visited {
+  text-decoration: none;
+  color : #FE1; 
+}
+
+h1 {
+  float: left;
+  padding-left : 3%; 
+  margin: 0;
+  color : #E54; 
+  font : bold italic 340%/0.7em Helvetica Neue Black Condensed, Arial Black, Arial, Sans-Serif; 
+  text-transform : lowercase; 
+}
+
+body > header form {
+  z-index: 0;
+  float: right;
+  right: 1em;
+  text-align: center;
+  position: absolute;
+  width: 10em;
+  text-align: right;
+  margin-top: 0.2em;
+  margin-right: 0.2em;
+  margin-bottom: -0em;
+  padding: 0.4em 0.4em 0.2em 0em;
+  background-color: #039;
+  -webkit-border-radius: 1em;
+  -khtml-border-radius: 1em;
+  -moz-border-radius: 1em;
+  -o-border-radius: 1em;
+  border-radius: 1em;
+}
+
+#q {
+  width: 7.5em;
+  margin-bottom: 0.3em;
+}
+
+body > header form div {
+  display: inline
+}
+
+body > header form:before {
+  content: url("/images/opensearch.png");
+}
+
+body > header form label {
+  display: none;
+}
+
+body > header {
+  padding-top : .4em; 
+  margin: -0.5em 0 1.53em 0;
+  background : #039 url("/images/blueback.png") repeat-x;
+  color : #FFF; 
+  display: block;
+}
+
+body > header p {
+  padding: 0 0 0 3em;
+  margin: 0;
+  font-family: Geneva, Lucida, Helvetica, sans-serif;
+  clear: both;
+}
+
+/* --------------- center area --------------- */
+
+article {
+  display: block;
+  line-height: 1.4;
+  color: #000;
+  margin: 0em 13em 1em 4em;
+  z-index: 0;
+  padding-left: 1.5em;
+}
+
+.excerpt {
+  display: none;
+}
+
+.warning {
+  border-width: 6px;
+  border-color: #000;
+  border-style: solid;
+  color: #FFF;
+  background-color: #F00;
+  margin: 1.5em 1.5em;
+  padding: 1em 1em 0em 1em;
+  -webkit-border-radius: 1em;
+  -khtml-border-radius: 4em;
+  -moz-border-radius: 4em;
+  -o-border-radius: 4em;
+  border-radius: 4em;
+}
+
+.blogbody {
+}
+
+.ad {
+  text-align: center;
+}
+
+.ad2 {
+  text-align: center;
+  margin-bottom: 1em;
+}
+
+.comment, .livepreview {
+  border-width: 1px;
+  border-style: dashed;
+  font-weight: normal;
+  margin: 1em 1.5em;
+  padding: 1em 1em;
+  -webkit-border-radius: 1em;
+  -khtml-border-radius: 2em;
+  -moz-border-radius: 2em;
+  -o-border-radius: 2em;
+  border-radius: 2em;
+}
+
+.livepreview {
+  border-color: #884;
+  background: #FF8;
+  font-size: small;
+}
+
+.livepreview h3 {
+  color: #00F;
+  font-style: italic !important;
+}
+
+input[name="name"], input[name="email"], input[name="url"],
+textarea[name="comment"] {
+  width: 100%;
+}
+
+input[name="url"] {
+  background: right url('/images/openid.png') no-repeat #DEF;
+}
+
+svg {
+  margin-left: 0.5em;
+}
+
+footer {
+  display: block;
+  margin-top: 0;
+  clear: both;
+  text-align: right;
+}
+
+.spellcheck {
+  cursor: help;
+  border-bottom: 1px dashed red;
+}
+
+pre.code, blockquote.code {
+  margin: 1em;
+  background-color: #FED;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #48C;
+  padding: 0.5em;
+  overflow: auto;
+}
+
+code {
+  /* font-family: Courier, Helvetica, serif; */
+  font-family: monospace, serif;
+}
+
+blockquote.quote {
+  border-left: medium solid black;
+  padding-left: 1em;
+  margin: 0;
+}
+
+dd {
+  margin-bottom: 1em
+}
+
+ins {
+  text-decoration: none;
+  border-bottom: 1px dotted;
+}
+
+/* --------------- story area --------------- */
+
+.storytab {
+  background: White;
+  color: #000;
+  margin-left: 15em;
+  width: 40%;
+  text-align: center;
+  z-index: 0;
+  padding-bottom: 1em;
+  border-color: #000;
+  border-style: solid;
+  border-width: 0.5em 0.5em 0em 0.5em;
+  -webkit-border-radius: 1em 1em 0em 0em;
+  -khtml-border-radius: 1em 1em 0em 0em;
+  -moz-border-radius: 1em 1em 0em 0em;
+  -o-border-radius: 1em 1em 0em 0em;
+  border-radius: 1em 1em 0em 0em;
+}
+
+.story {
+  background: White;
+  color: #000;
+  margin-left: 13em;
+  margin-right: .75em;
+  z-index: 1;
+  border-color: #000;
+  border-style: solid;
+  border-width: 0.5em;
+  -webkit-border-radius: 1em;
+  -khtml-border-radius: 1em;
+  -moz-border-radius: 1em;
+  -o-border-radius: 1em;
+  border-radius: 1em;
+}
+
+/* --------------- right bar --------------- */
+
+aside {
+  background-color: #CCD;
+  color: #000;
+  position: fixed;
+  right: 1em;
+  text-align: center;
+  top: 5em;
+  width: 10em;
+  z-index: 2;
+  -webkit-border-radius: 1em;
+  -khtml-border-radius: 1em;
+  -moz-border-radius: 1em;
+  -o-border-radius: 1em;
+  border-radius: 1em;
+}
+
+.leftbar {
+  background: White;
+  color: yellow;
+  left: 1.25em;
+  position: absolute;
+  text-align: center;
+  top: 4em;
+  width: 10.5em;
+  z-index: 2;
+  -moz-border-radius: 1em;
+  border-radius: 1em;
+}
+.leftbar h2 a { color: yellow }
+.rightbar h2 a { color: yellow }
+
+.rightbar {
+  color: #000;
+  position: absolute;
+  right: 1em;
+  text-align: center;
+  top: 4em;
+  width: 10em;
+  z-index: 2;
+}
+
+nav {
+  margin-top: 0.5em;
+  margin-bottom: 0.7em;
+  display: block;
+}
+
+nav ul {
+  padding : 0;
+  list-style-type: none;
+  margin: 0;
+}
+
+nav a {
+  font-weight: normal;
+}
+
+.blogroll {
+  margin-top: 1em;
+  display: none;
+}
+
+.powered {
+  margin-top: 1em;
+  margin-bottom: 1.25em;
+}
+
+a.feed:after {
+  content: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAG6SURBVHjaTJG9SxxRFMXP+5i3s2Ejg8gusZKERAQhCgoSEbEwBCRdIJ2kWdKkCDY2ViKof0Cw0EqwsVFQAlutlTZqJYSgYBUlBs0ku2F3vt7LfW9UHLjDG+ac+373XPZ9pm/AV37dVyrgHoeQDPxBMcEAk6H5Nw7DX80JacUyyQL5tB/m+hTQ/8AMCcHBGb05FZk6y15gTKkuPc4Drgw6q2uwj/5zifTbLrKTTfCs6cSMTGmsUSr5RFFUEAWG5sZHRPurQNyAGqnCf78OUX5xL05bGllsqAFxCmL3eoagL44RbU4jqc2CFR5DTn2B7njmxGnbGjQhOgNDYbSK4rsV+NNbedevnxyifL2MzDy6NZjcYNNprU0i3VsATQs5uQTjV9CuzYN3PIHom8oNyYMbHC+Js+0PMI1LiFef0T6pQ4cXKLx8izSyBrrB5mxN6s0yxPgcTPcY4oNV15lVBtE62oHX3ev4dWqRRJ6zuTmFiRqIzw8RnR06ftb1HPHVD3cWlV7CSsB+Lg7/tku5i86y3leUJ2OH1YQjulQo7brtBotFGUAr0C+AGzCPBqQvCHs2yGQaJogm/gswACW0ydBRuiLNAAAAAElFTkSuQmCC");
+  padding-left: 0.3em;
+}
+
+.calendar {
+  width: 98%;
+  margin-left: 1%;
+  padding: 0;
+}
+
+table.calendar {
+  background-color: #ccd;
+  -moz-border-radius: 1.2em;
+}
+
+table caption {
+  color: white;
+  border: 10px;
+  margin-bottom: 10px;
+  font-size: xx-large;
+}
+
+table caption a {
+  color: white;
+  border: 10px;
+  margin-bottom: 10px;
+  font-size: xx-large;
+}
+
+.calendar td {
+  height: 7em;
+  vertical-align: top;
+  background-color: white;
+}
+
+.calendar th {
+  color: white;
+  height: 2em;
+  width: 14%;
+  padding-top: 0.2em;
+  background-color: #039;
+}
+
+.calendar th:first-child {
+  -moz-border-radius: 1em 0 0 0;
+  border-radius: 1em 0 0 0;
+}
+
+.calendar th:last-child {
+  -moz-border-radius: 0 1em 0 0;
+  border-radius: 0 1em 0 0;
+}
+
+.calendar tr:last-child > td:first-child {
+  -moz-border-radius: 0 0 0 1em;
+  border-radius: 0 0 0 1em;
+}
+
+.calendar tr:last-child > td:last-child {
+  -moz-border-radius: 0 0 1em 0;
+  border-radius: 0 0 1em 0;
+}
+
+td:hover a.day {
+  color: #FD0;
+}
+
+.day {
+  -moz-border-radius: 0 0 0 0.5em;
+  border-radius: 0.2em;
+  font-family: verdana, arial, sans-serif;
+  font-weight: bold;
+  float: right;
+  color: white;
+  background: black
+}
+
+.calendar ul {
+  list-style: none;
+  margin: 0;
+  padding: 0 3px 0 3px;
+}
+
+.calendar li {
+  clear: left;
+}
+
+.entry {
+  font-weight: normal;
+  color: black;
+}
+
+.calendar li {
+  padding-top: 6px;
+  font-size: small;
+}
+
+.calendar tr td ul li a {
+  color: black
+}
+
+.calendar a div {
+  float:left !important
+}

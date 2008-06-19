@@ -1,0 +1,16 @@
+<pre>
+<%=
+  require 'open3'
+  out = []
+  Open3.popen3('rake test') do |pin, pout, perr|
+    tout = Thread.new {out << pout.readline until pout.eof?}
+    terr = Thread.new do
+      out << "<span style='color:red'>#{perr.readline}</span>" until perr.eof?
+    end
+    pin.close
+    terr.join
+    tout.join
+    out.join
+  end
+%>
+</pre>

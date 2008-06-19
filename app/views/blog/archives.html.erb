@@ -1,0 +1,56 @@
+<table class="calendar">
+<caption>
+<%= link_to @date.strftime("%B %Y"), archives_url(
+    :year => @date.year, :month => @date.month.to_s.rjust(2,'0')) %>
+</caption>
+<tr>
+<th>Sunday</th>
+<th>Monday</th>
+<th>Tuesday</th>
+<th>Wednesday</th>
+<th>Thursday</th>
+<th>Friday</th>
+<th>Saturday</th>
+</tr>
+<% for week in @calendar %>
+<tr>
+<% for day in week -%>
+<td>
+<% if day != 0 -%>
+<div class="day"><%= day %></div>
+<% if @entries.any? {|entry| entry.created_at.day == day } -%>
+<ul>
+<% for entry in @entries -%>
+<% if entry.created_at.day == day -%>
+<li><a href="<%= date_url(:year => entry.created_at.year,
+:month => entry.created_at.month, :day => entry.created_at.day,
+:slug => entry.slug) %>"><%= entry.svg_div(0.03) %><%= entry.title
+%></a></li>
+<% end -%>
+<% end -%>
+</ul>
+<% end -%>
+<% end -%>
+</td>
+<% end -%>
+</tr>
+<% end -%>
+</table>
+
+<div class="leftbar">
+<h2>
+<%=
+  @date -= 1;
+  link_to @date.strftime("%B %Y"), archives_url(
+    :year => @date.year, :month => @date.month.to_s.rjust(2,'0')) %>
+</h2>
+</div>
+
+<div class="rightbar">
+<h2>
+<%=
+  @date += 32;
+  link_to @date.strftime("%B %Y"), archives_url(
+    :year => @date.year, :month => @date.month.to_s.rjust(2,'0')) %>
+</h2>
+</div>

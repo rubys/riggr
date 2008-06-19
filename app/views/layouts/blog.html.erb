@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+<title>Sam Ruby</title>
+<link rel="alternate" type="application/atom+xml" title="It&#8217;s just data" href="http://intertwingly.net/blog/index.atom"/>
+<link rel="openid.server" href="http://intertwingly.net/id/"/>
+<link rel="search" type="application/opensearchdescription+xml" href="http://intertwingly.net/search/" title="intertwingly blog search"/>
+<%= stylesheet_link_tag 'blog' %>
+<%= stylesheet_link_tag 'print', :media => 'print' %>
+<link rel="shortcut icon" href="/favicon.ico"/>
+<meta name="ICBM" content="35.708298,-78.695515"/>
+<%= javascript_include_tag 'localize_dates' %>
+</head>
+
+<body>
+
+<header>
+<h1><%= link_to 'intertwingly', url_for(:action=>:index) %></h1>
+<form method="get" action="http://intertwingly.net/blog/">
+<label for="q">Search</label>
+<input type="text" id="q" name="q" value=""/>
+</form>
+<p>It&#8217;s just data</p>
+</header>
+
+<%= yield %>
+
+<% unless @calendar %>
+<aside>
+
+<h2>Nav Bar</h2>
+
+<nav>
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Sam_Ruby">About</a></li>
+<li><a href="/blog/comments.html">Comments</a></li>
+<li><a id="navbar_register" href="/blog/registry/">Register</a></li>
+<li><a href="/stats/">Statistics</a></li>
+<li><a href="/blog/archives/">Archives</a></li>
+<li><a href="http://planet.intertwingly.net/">BlogRoll</a></li>
+<li><a href="/wiki/pie/FrontPage">Wiki</a></li>
+<li><a href="/code/">Code</a></li>
+<li><a
+href="http://www.oreilly.com/catalog/9780596529260/">Book</a></li>
+<li><a href="/blog/2005/05/16/Disclaim-This">Disclaimer</a></li>
+</ul>
+</nav>
+
+</aside>
+<% end %>
+
+</body>
+</html>

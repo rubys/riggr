@@ -1,0 +1,26 @@
+<h1>Listing posts</h1>
+
+<table>
+  <tr>
+    <th>Date</th>
+    <th>Slug</th>
+    <th>Alt</th>
+    <th>Title</th>
+  </tr>
+
+<% for post in @posts %>
+  <tr>
+    <td><%=h post.created_at.strftime('%Y/%m/%d') %></td>
+    <td><%=h post.slug %></td>
+    <td><%=h post.alt %></td>
+    <td><%=h post.title %></td>
+    <td><%= link_to 'Show', post %></td>
+    <td><%= link_to 'Edit', edit_post_path(post) %></td>
+    <td><%= link_to 'Destroy', post, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New post', new_post_path %>

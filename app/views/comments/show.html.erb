@@ -1,0 +1,27 @@
+<p>
+  <b>Time:</b>
+  <%=h @comment.created_at %>
+</p>
+
+<p>
+  <b>Slug:</b>
+  <%=h @comment.slug %>
+</p>
+
+<p>
+  <b>Post:</b>
+  <%=h @comment.post_id %>
+</p>
+<p>
+  <b>Title:</b>
+  <%= @comment.title %>
+</p>
+
+<p>
+  <b>Content:</b>
+  <blockquote><%= @comment.content %></blockquote>
+</p>
+
+
+<%= link_to 'Edit', edit_comment_path(@comment) %> |
+<%= link_to 'Back', comments_path %>
