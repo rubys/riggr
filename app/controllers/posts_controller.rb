@@ -1,4 +1,7 @@
 class PostsController < ApplicationController
+  include AdminAuth
+  before_filter :authenticate
+
   # GET /posts
   # GET /posts.xml
   def index

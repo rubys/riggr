@@ -1,4 +1,7 @@
 class CommentsController < ApplicationController
+  include AdminAuth
+  before_filter :authenticate
+
   # GET /comments
   # GET /comments.xml
   def index
