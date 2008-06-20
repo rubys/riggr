@@ -3,6 +3,27 @@ class Post < ActiveRecord::Base
   attr_accessor :title, :summary, :svg, :content
   FILESTORE = "db/blog/#{RAILS_ENV}"
 
+  def self.import! filename
+    open(filename) do |file|
+      post = Post.new
+      title = file.gets.strip
+      post.title = title unless title.empty?
+      post.created_at = file.mtime
+      name = File.basename(filename)
+      if name =~ /^(\d+)\.txt/
+        post.alt = $1.to_i
+      else
+        post.slug = name.gsub(/\.txt/,'').gsub('_','-')
+      end
+      FileUtils.mkdir_p "#{Post::FILESTORE}/#{File.dirname(post.filename)}"
+      open("#{Post::FILESTORE}/#{post.filename}", 'w') do |blog|
+        blog.puts title
+        blog.print file.read
+      end
+      post.save!
+    end
+  end
+
   def after_find
     open("#{Post::FILESTORE}/#{filename}") do |file|
       @title = file.gets.chomp
