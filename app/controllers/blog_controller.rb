@@ -11,8 +11,9 @@ class BlogController < ApplicationController
 
   def post
     date = Date.new(params[:year].to_i, params[:month].to_i, params[:day].to_i)
-    @post = Post.find(:first,
-      :conditions => ['created_at >= ? and created_at < ?', date, date+1])
+    @post = Post.find(:first, :conditions => 
+      ['created_at >= ? and created_at < ? and slug = ?',
+        date, date+1, params[:slug]])
     @comments = Comment.find(:all, :order => 'created_at asc',
       :conditions => ['post_id = ?', @post])
   end
