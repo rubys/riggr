@@ -1,8 +1,60 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class PostTest < ActiveSupport::TestCase
-  # Replace this with your real tests.
-  def test_truth
-    assert true
+  def setup
+    # create an index entry
+    @post = Post.new
+    @post.created_at = Time.utc(2008,06,21,12,34,56)
+  end
+
+  def test_filestore
+    assert_equal 'db/blog/test', Post::FILESTORE
+  end
+
+  def test_filename
+    @post.slug = 'slug'
+    assert_equal '2008/06/21/slug', @post.filename
+  end
+
+  def test_generate_slug_from_title
+    # simple title
+    @post.title = 'title'
+    assert_equal 'title', @post.slug
+
+    # title with spaces
+    @post.title = '  title with   spaces  '
+    assert_equal 'title-with-spaces', @post.slug
+
+    # title with apostrophe
+    @post.title = "slug's revenge"
+    assert_equal 'slugs-revenge', @post.slug
+
+    # title with punctuation
+    @post.title = 'very, very, bad title'
+    assert_equal 'very-very-bad-title', @post.slug
+
+    # title with entity
+    @post.title = "slug&#8217;s revenge"
+    assert_equal 'slugs-revenge', @post.slug
+
+    # title with markup
+    @post.title = 'very, <b>very</b>, bad title'
+    assert_equal 'very-very-bad-title', @post.slug
+  end
+
+  def test_file_backingstore
+    # save the index entry and create the corresponding file
+    @post.slug = 'lipsum'
+    @post.save!
+    filename = "#{Post::FILESTORE}/#{@post.filename}"
+    FileUtils.mkdir_p File.dirname(filename)
+    open(filename,'w') { |file| file.write "loren\nipsum\n" }
+
+    # verify that the file augments the model after a find occurs
+    @post = Post.find(:first, :conditions => ['slug = ?', 'lipsum'])
+    assert_equal 'loren', @post.title
+    assert_equal "ipsum\n", @post.content
+    assert_nil @post.svg
+    assert_nil @post.summary
   end
 end
