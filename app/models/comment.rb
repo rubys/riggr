@@ -12,9 +12,9 @@ class Comment < ActiveRecord::Base
     else
       comment.post = Post.find_by_slug(name.gsub(/-.*/,'').gsub('_','-'))
     end
-    dirname = "#{Post::FILESTORE}/#{File.dirname(comment.filename)}"
-    FileUtils.mkdir_p dirname
-    FileUtils.cp filename, "#{dirname}/#{name}", :preserve => true
+    dest = "#{Post::FILESTORE}/#{comment.filename}"
+    FileUtils.mkdir_p File.dirname(dest)
+    FileUtils.cp filename, dest, :preserve => true
     comment.save!
   end
 

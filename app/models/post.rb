@@ -15,11 +15,9 @@ class Post < ActiveRecord::Base
       else
         post.slug = name.gsub(/\.txt/,'').gsub('_','-')
       end
-      FileUtils.mkdir_p "#{Post::FILESTORE}/#{File.dirname(post.filename)}"
-      open("#{Post::FILESTORE}/#{post.filename}", 'w') do |blog|
-        blog.puts title
-        blog.print file.read
-      end
+      dest = "#{Post::FILESTORE}/#{post.filename}"
+      FileUtils.mkdir_p File.dirname(dest)
+      FileUtils.cp filename, dest, :preserve => true
       post.save!
     end
   end

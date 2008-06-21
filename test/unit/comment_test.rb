@@ -8,6 +8,10 @@ class CommentTest < ActiveSupport::TestCase
     @comment.slug = '123456'
   end
 
+  def teardown
+    FileUtils.rm_rf Post::FILESTORE
+  end
+
   def test_filename
     assert_equal '2008/06/21/123456', @comment.filename
   end
@@ -23,5 +27,20 @@ class CommentTest < ActiveSupport::TestCase
     @comment = Comment.find(:first, :conditions => ['slug = ?', '123456'])
     assert_equal 'loren', @comment.title
     assert_equal "ipsum\n", @comment.content
+  end
+
+  def test_import
+    # import a test file
+    open('tmp/import_42.cmt','w') { |file| file.write("loren\n\ipsum\n") }
+    File.utime @comment.created_at, @comment.created_at, 'tmp/import_42.cmt'
+    Comment.import! 'tmp/import_42.cmt'
+
+    # verify results
+    @comment = Comment.find(:first, :conditions => ['slug = ?', 'import_42'])
+    assert_equal 'loren', @comment.title
+    assert_equal Time.utc(2008,06,21,12,34,56), @comment.created_at
+    assert_equal '2008/06/21/import_42', @comment.filename
+  ensure
+    File.unlink('tmp/import_42.cmt')
   end
 end

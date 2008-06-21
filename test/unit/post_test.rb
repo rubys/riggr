@@ -7,6 +7,10 @@ class PostTest < ActiveSupport::TestCase
     @post.created_at = Time.utc(2008,06,21,12,34,56)
   end
 
+  def teardown
+    FileUtils.rm_rf Post::FILESTORE
+  end
+
   def test_filestore
     assert_equal 'db/blog/test', Post::FILESTORE
   end
@@ -56,5 +60,20 @@ class PostTest < ActiveSupport::TestCase
     assert_equal "ipsum\n", @post.content
     assert_nil @post.svg
     assert_nil @post.summary
+  end
+
+  def test_import
+    # import a test file
+    open('tmp/import.txt','w') { |file| file.write("loren\n\ipsum\n") }
+    File.utime @post.created_at, @post.created_at, 'tmp/import.txt'
+    Post.import! 'tmp/import.txt'
+
+    # verify results
+    @post = Post.find(:first, :conditions => ['slug = ?', 'import'])
+    assert_equal 'loren', @post.title
+    assert_equal Time.utc(2008,06,21,12,34,56), @post.created_at
+    assert_equal '2008/06/21/import', @post.filename
+  ensure
+    File.unlink('tmp/import.txt')
   end
 end
