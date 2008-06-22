@@ -72,8 +72,69 @@ class PostTest < ActiveSupport::TestCase
     @post = Post.find(:first, :conditions => ['slug = ?', 'import'])
     assert_equal 'loren', @post.title
     assert_equal Time.utc(2008,06,21,12,34,56), @post.created_at
+    assert_equal Time.utc(2008,06,21,12,34,56), @post.updated_at
     assert_equal '2008/06/21/import', @post.filename
   ensure
     File.unlink('tmp/import.txt')
+  end
+
+  # support for test_excerpt
+  def import(string)
+    open('tmp/import.txt','w') { |file| file.write(string.gsub(/^      /,'')) }
+    Post.import! 'tmp/import.txt'
+    @post = Post.find(:first, :conditions => ['slug = ?', 'import'])
+  end
+
+  def test_excerpt
+    # no excerpt
+    import("\n" + <<-'EOF')
+      bar
+    EOF
+
+    assert_equal nil, @post.summary
+    assert_equal "bar\n", @post.content
+    assert_equal @post.created_at, @post.updated_at
+
+    # simple excerpt
+    import("\n" + <<-'EOF')
+      <div class="excerpt">foo</div>
+      bar
+    EOF
+
+    assert_equal 'foo', @post.summary
+    assert_equal "bar\n", @post.content
+    assert_not_equal '2008-06-21T12:34:56Z', @post.updated_at.utc.iso8601
+
+    # excerpt + updated
+    import("\n" + <<-'EOF').summary
+      <div class="excerpt" updated="2008-06-21T12:34:56Z">foo</div>
+      bar
+    EOF
+
+    assert_equal 'foo', @post.summary
+    assert_equal "bar\n", @post.content
+    assert_equal '2008-06-21T12:34:56Z', @post.updated_at.utc.iso8601
+
+    # updated, no excerpt
+    import("\n" + <<-'EOF').summary
+      <div class="excerpt" updated="2008-06-21T12:34:56Z"/>
+      bar
+    EOF
+
+    assert_equal nil, @post.summary
+    assert_equal "bar\n", @post.content
+    assert_equal '2008-06-21T12:34:56Z', @post.updated_at.utc.iso8601
+
+    # multiline excerpt
+    import("\n" + <<-'EOF').summary
+      <div class="excerpt" updated="2008-06-21T12:34:56Z">
+        foo
+      </div>
+      bar
+    EOF
+
+    assert_equal 'foo', @post.summary
+    assert_equal "bar\n", @post.content
+    assert_equal '2008-06-21T12:34:56Z', @post.updated_at.utc.iso8601
   end
 end
