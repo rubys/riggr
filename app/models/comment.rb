@@ -1,5 +1,5 @@
 class Comment < ActiveRecord::Base
-  attr_accessor :title, :content
+  attr_accessor :title, :content, :sig
   belongs_to :post
 
   def self.import! filename
@@ -31,18 +31,51 @@ class Comment < ActiveRecord::Base
   end
 
   def author
-    if @content =~ /(?:<br \/>\s<br \/>\s)?Posted by (.*)/
-      name = $1
-    elsif @content =~ /\n<br \/><br \/>Excerpt from (.*)/
-      name = $1
-    else
-      name = '?'
+    author = {}
+
+    # parse the various signatures that have been employed by intertwingly.net
+    # over the years...
+    case @content
+    when /(?:<br \/>\s<br \/>\s)?Posted by (.*)/
+      author[:name] = $1
+    when /\n<br \/><br \/>Excerpt from (.*)/
+      author[:name] = $1
+    when /(?:<a href="(\S+)">\[more\]<\/a>)?<br \/><br \/>Trackback from (.*)/
+      author[:uri] = $1
+      author[:name] = $2
+    when /(?:<br \/><br \/>)?Pingback from (.*)/
+      author[:name] = $1
+    when /\n+<br \/><br \/>Emailed by (.*)/
+      author[:name] = $1
+    when /(?:<br \/><br \/>\s)?Message from (.*)/
+      author[:name] = $1
+    when /\n<br \/><br \/>Seen on (.*)/
+      author[:name] = $1
     end
 
-    if name =~ /<a (.*?)>(.*)<\/a>$/
-      $2
-    else
-      name
+    # capture signature
+    if $~
+      @sig = @content[$~.begin(0)..-1]
     end
+
+    # parse hypertext links
+    if author[:name] =~ /<a( .*?)>(.*)<\/a>$/
+      author[:name] = $2
+      attrs = Hash[*$1.scan(/ (\w+)="(.*?)"/).flatten]
+      author[:uri] = attrs['href'] if attrs['href']
+      if attrs['class'] == 'openid'
+        author[:openid] = attrs['title']
+      else
+        author[:ipaddr] = attrs['title']
+      end
+    end
+
+    # parse email addresses
+    if author[:uri] =~ /^mailto:(.*)/
+      author[:email] = $1
+      author.delete :uri
+    end
+
+    author
   end
 end

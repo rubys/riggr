@@ -12,7 +12,7 @@
   <tr>
     <td><%=h comment.created_at.iso8601 %></td>
     <td><%=h comment.post ? comment.post.slug : '?' %></td>
-    <td><%=h comment.author %></td>
+    <td><%=h comment.author[:name] || '?' %></td>
     <td><%= link_to 'Show', comment %>
     <%= link_to 'Edit', edit_comment_path(comment) %>
     <%= link_to 'Destroy', comment, :confirm => 'Are you sure?', :method => :delete %></td>

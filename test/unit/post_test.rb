@@ -136,5 +136,8 @@ class PostTest < ActiveSupport::TestCase
     assert_equal 'foo', @post.summary
     assert_equal "bar\n", @post.content
     assert_equal '2008-06-21T12:34:56Z', @post.updated_at.utc.iso8601
+
+  ensure
+    File.unlink('tmp/import.txt')
   end
 end

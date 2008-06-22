@@ -43,4 +43,50 @@ class CommentTest < ActiveSupport::TestCase
   ensure
     File.unlink('tmp/import_42.cmt')
   end
+
+  # support for test_author
+  def import(string)
+    open('tmp/import.cmt','w') { |file| file.write("\n" + string) }
+    Comment.import! 'tmp/import.cmt'
+    @comment = Comment.find(:first, :conditions => ['slug = ?', 'import'])
+  end
+
+  def test_author
+    import "text\n<br /><br />Excerpt from site\n"
+    assert_equal 'site', @comment.author[:name]
+
+    import "text<br /><br />Posted by name\n"
+    assert_equal 'name', @comment.author[:name]
+
+    import "text\n<a href=\"http://example.com/\">[more]</a>" +
+      "<br /><br />Trackback from site\n"
+    assert_equal 'site', @comment.author[:name]
+
+    import "Pingback from site\n"
+    assert_equal 'site', @comment.author[:name]
+
+    import "text\n<br /><br />Emailed by name\n"
+    assert_equal 'name', @comment.author[:name]
+
+    import "text\n<br /><br />Message from name\n"
+    assert_equal 'name', @comment.author[:name]
+
+    import "text\n<br /><br />Seen on site\n"
+    assert_equal 'site', @comment.author[:name]
+
+    import 'text<br /><br />Posted by <a title="http://site.com/id" ' +
+      'class="openid" href="http://site.com/">name</a>'
+    assert_equal 'name', @comment.author[:name]
+    assert_equal 'http://site.com/', @comment.author[:uri]
+    assert_equal 'http://site.com/id', @comment.author[:openid]
+
+    import 'text<br /><br />Posted by <a title="1.2.3.4" ' +
+      'href="mailto:name@site.com">name</a>'
+    assert_equal 'name', @comment.author[:name]
+    assert_equal 'name@site.com', @comment.author[:email]
+    assert_equal '1.2.3.4', @comment.author[:ipaddr]
+
+  ensure
+    File.unlink('tmp/import.cmt')
+  end
 end
