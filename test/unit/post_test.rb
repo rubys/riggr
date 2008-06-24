@@ -92,6 +92,7 @@ class PostTest < ActiveSupport::TestCase
     EOF
 
     assert_equal nil, @post.summary
+    assert_equal nil, @post.svg
     assert_equal "bar\n", @post.content
     assert_equal @post.created_at, @post.updated_at
 
@@ -102,6 +103,7 @@ class PostTest < ActiveSupport::TestCase
     EOF
 
     assert_equal 'foo', @post.summary
+    assert_equal nil, @post.svg
     assert_equal "bar\n", @post.content
     assert_not_equal '2008-06-21T12:34:56Z', @post.updated_at.utc.iso8601
 
@@ -112,6 +114,7 @@ class PostTest < ActiveSupport::TestCase
     EOF
 
     assert_equal 'foo', @post.summary
+    assert_equal nil, @post.svg
     assert_equal "bar\n", @post.content
     assert_equal '2008-06-21T12:34:56Z', @post.updated_at.utc.iso8601
 
@@ -122,6 +125,7 @@ class PostTest < ActiveSupport::TestCase
     EOF
 
     assert_equal nil, @post.summary
+    assert_equal nil, @post.svg
     assert_equal "bar\n", @post.content
     assert_equal '2008-06-21T12:34:56Z', @post.updated_at.utc.iso8601
 
@@ -134,8 +138,60 @@ class PostTest < ActiveSupport::TestCase
     EOF
 
     assert_equal 'foo', @post.summary
+    assert_equal nil, @post.svg
     assert_equal "bar\n", @post.content
-    assert_equal '2008-06-21T12:34:56Z', @post.updated_at.utc.iso8601
+
+  ensure
+    File.unlink('tmp/import.txt')
+  end
+
+  def test_svg
+    svgtext = '<svg xmlns="http://www.w3.org/2000/svg"><text>t</text></svg>'
+
+    # simple svg
+    import("\n" + <<-EOF)
+      #{svgtext}
+      bar
+    EOF
+
+    assert_equal nil, @post.summary
+    assert_equal svgtext, @post.svg
+    assert_equal "bar\n", @post.content
+
+    # simple excerpt
+    import("\n" + <<-EOF)
+      <div class="excerpt">foo</div>
+      #{svgtext}
+      bar
+    EOF
+
+    assert_equal 'foo', @post.summary
+    assert_equal svgtext, @post.svg
+    assert_equal "bar\n", @post.content
+
+    # updated, no excerpt
+    import("\n" + <<-EOF).summary
+      <div class="excerpt" updated="2008-06-21T12:34:56Z"/>
+      #{svgtext}
+      bar
+    EOF
+
+    assert_equal nil, @post.summary
+    assert_equal svgtext, @post.svg
+    assert_equal "bar\n", @post.content
+
+    # multiline excerpt
+    import("\n" + <<-EOF).summary
+      <div class="excerpt" updated="2008-06-21T12:34:56Z">
+        foo
+      </div>
+      #{svgtext}
+      bar
+    EOF
+
+    assert_equal 'foo', @post.summary
+    assert_equal svgtext, @post.svg
+    assert_equal "bar\n", @post.content
 
   ensure
     File.unlink('tmp/import.txt')
