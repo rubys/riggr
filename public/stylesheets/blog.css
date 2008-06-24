@@ -318,8 +318,14 @@ input[name="url"] {
   background: right url('/images/openid.png') no-repeat #DEF;
 }
 
-svg {
+header + svg {
+  float: right;
   margin-left: 0.5em;
+}
+
+li > a > svg {
+  float: left;
+  margin-right: 0.3em;
 }
 
 footer {

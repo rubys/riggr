@@ -53,20 +53,21 @@ class Post < ActiveRecord::Base
       gsub(/\W/,' ').strip.gsub(/\s+/,'-')
   end
 
-  def svg_div scale=0.0625
+  def scaled_svg scale=0.05
     return unless svg
     height = width = viewBox = nil
     decl, rest = svg.split('>',2)
-    decl.sub!(/ width=['"](\d+)["']/) {width=$i.to_i; ''}
-    decl.sub!(/ height=['"](\d+)["']/) {height=$i.to_i; ''}
-    decl.sub!(/ viewBox=['"]([-\d\s\.]+)["']/) do |points|
-      viewBox=points.split.map {|point| point.to_i}
+    decl.sub!(/ width=['"](\d+)["']/) {width=$1.to_i; ''}
+    decl.sub!(/ height=['"](\d+)["']/) {height=$1.to_i; ''}
+    decl.sub!(/ viewBox=['"]([-\d\s\.]+)["']/) do
+      viewBox=$1.split.map {|point| point.to_i}
       ''
     end
     viewBox = [0,0,width,height] if width and height and !viewBox
 
-    "<div style='width:#{viewBox[2]*scale}em; " +
-      "height:#{viewBox[3]*scale}em; float:right'>#{decl} " +
-      "viewBox='#{viewBox.join(' ')}'>#{rest}</div>"
+    "#{decl} viewBox='#{viewBox.join(' ')}' " + 
+      "width='#{(viewBox[2]*scale).to_s.sub(/\.0$/,'')}em' " +
+      "height='#{(viewBox[3]*scale).to_s.sub(/\.0$/,'')}em'>" +
+      "#{rest}"
   end
 end

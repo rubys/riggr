@@ -24,7 +24,7 @@
 <% if entry.created_at.day == day -%>
 <li><a href="<%= date_url(:year => entry.created_at.year,
 :month => entry.created_at.month, :day => entry.created_at.day,
-:slug => entry.slug) %>"><%= entry.svg_div(0.03) %><%= entry.title
+:slug => entry.slug) %>"><%= entry.scaled_svg(0.02) %><%= entry.title
 %></a></li>
 <% end -%>
 <% end -%>

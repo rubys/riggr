@@ -196,4 +196,44 @@ class PostTest < ActiveSupport::TestCase
   ensure
     File.unlink('tmp/import.txt')
   end
+
+  def test_scaled_svg
+    svgns = "xmlns='http://www.w3.org/2000/svg'"
+
+    # standard viewBox
+    import("\n" + <<-EOF)
+      <svg #{svgns} viewBox='0 0 100 100'></svg>
+    EOF
+
+    assert_equal <<-EOF.strip, @post.scaled_svg
+      <svg #{svgns} viewBox='0 0 100 100' width='5em' height='5em'></svg>
+    EOF
+
+    # offset viewBox
+    import("\n" + <<-EOF)
+      <svg #{svgns} viewBox='-50 -50 100 100'></svg>
+    EOF
+
+    assert_equal <<-EOF.strip, @post.scaled_svg
+      <svg #{svgns} viewBox='-50 -50 100 100' width='5em' height='5em'></svg>
+    EOF
+
+    # width and height
+    import("\n" + <<-EOF)
+      <svg #{svgns} width='120' height="80"></svg>
+    EOF
+
+    assert_equal <<-EOF.strip, @post.scaled_svg
+      <svg #{svgns} viewBox='0 0 120 80' width='6em' height='4em'></svg>
+    EOF
+
+    # width and height scaled
+    import("\n" + <<-EOF)
+      <svg #{svgns} width='120' height="80"></svg>
+    EOF
+
+    assert_equal <<-EOF.strip, @post.scaled_svg(0.02)
+      <svg #{svgns} viewBox='0 0 120 80' width='2.4em' height='1.6em'></svg>
+    EOF
+  end
 end
