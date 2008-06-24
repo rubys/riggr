@@ -28,7 +28,7 @@ class Post < ActiveRecord::Base
       @content = file.read
       self.updated_at = self.created_at
       @content.sub! /^<div class="excerpt".*?(\/>|<\/div>)\n?/m do |summary|
-        @summary = summary.sub(/\s*<\/div>\n?\z/,'').sub(/^.*>\s*/) do |div|
+        @summary = summary.sub(/\s*<\/div>\n?\z/,'').sub(/^.*?>\s*/) do |div|
           self.updated_at = Time.parse($1) if div =~ / updated="(.*?)"/
           ''
         end

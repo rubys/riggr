@@ -183,13 +183,13 @@ class PostTest < ActiveSupport::TestCase
     # multiline excerpt
     import("\n" + <<-EOF).summary
       <div class="excerpt" updated="2008-06-21T12:34:56Z">
-        foo
+        foo <u>bar</u>
       </div>
       #{svgtext}
       bar
     EOF
 
-    assert_equal 'foo', @post.summary
+    assert_equal 'foo <u>bar</u>', @post.summary
     assert_equal svgtext, @post.svg
     assert_equal "bar\n", @post.content
 
