@@ -26,8 +26,8 @@ h2 {
   clear: both;
   margin: 0.7em 0.7em 0.1em 0.7em;
   padding: .25em 1em .25em 1em;
-  -webkit-border-radius: 1em;
   -khtml-border-radius: 1em;
+  -webkit-border-radius: .8em; /* must appear after -khtml and be < .9em */
   -moz-border-radius: 1em;
   -o-border-radius: 1em;
   border-radius: 1em;
@@ -93,8 +93,8 @@ input, textarea {
   color: #000;
   background-color: #DEF;
   padding: 2px;
-  -webkit-border-radius: 1em;
   -khtml-border-radius: 1em;
+  -webkit-border-radius: .9em; /* must be after -khtml and be less than 1em */
   -moz-border-radius: 1em;
   -o-border-radius: 1em;
   border-radius: 1em;
