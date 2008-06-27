@@ -30,4 +30,19 @@ module BlogHelper
       "<h3>#{comment.title}</h3>"
     end
   end
+
+  def text_construct(xml, entry, field)
+    data = entry.send field
+    if data =~ /&|</
+      div = "<div xmlns='http://www.w3.org/1999/xhtml'>#{data}</div>\n"
+      begin
+        doc = REXML::Document.new div
+        xml.instance_eval "#{field} :type=>'xhtml', &proc {|x| x<<doc.to_s}"
+      rescue
+        xml.instance_eval "#{field} div, :type=>'html'"
+      end
+    else
+      xml.instance_eval "#{field} data"
+    end
+  end
 end
