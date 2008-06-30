@@ -1,5 +1,16 @@
 module BlogHelper
-  def comment_link(post)
+  def post_url(post, overrides={})
+    options = {:year => post.created_at.year,
+      :month => post.created_at.month, :day => post.created_at.day,
+      :slug => post.slug}
+    date_url(options.update(overrides))
+  end
+
+  def comment_url(comment)
+    post_url(comment.post, :anchor => comment.anchor)
+  end
+
+  def comment_link(post, anchor='comments')
     comments = post.comments.size
 
     if comments == 0
@@ -10,9 +21,7 @@ module BlogHelper
       text = "#{comments} comments"
     end
 
-    link_to text, date_url(:year => post.created_at.year,
-      :month => post.created_at.month, :day => post.created_at.day,
-      :slug => post.slug)
+    link_to text, post_url(post, :anchor=>anchor)
   end
 
   def comment_header(comment)

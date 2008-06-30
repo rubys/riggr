@@ -1,7 +1,7 @@
 <% for post in @posts %>
 <article>
 <header>
-<h3><%= post.title %></h3>
+<h3><%= link_to post.title, post_url(post) %></h3>
 <hr/><time title="GMT" datetime="<%= post.created_at.iso8601 %>"><%=
 post.created_at %></time>
 </header>

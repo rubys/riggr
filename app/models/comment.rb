@@ -78,4 +78,8 @@ class Comment < ActiveRecord::Base
 
     author
   end
+
+  def anchor
+    'c' + slug.split('-').last
+  end
 end

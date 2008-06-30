@@ -1,13 +1,13 @@
 <% for comment in @comments %>
 <article>
 <header>
-<h3><%= comment.title %></h3>
+<h3><%= link_to comment.title, comment_url(comment) %></h3>
 <hr/><time title="GMT" datetime="<%= comment.created_at.iso8601 %>"><%=
 comment.created_at %></time>
 </header>
 <%= comment.content %>
 <footer>
-<%= comment_link(comment.post) %>
+<%= comment_link(comment.post, comment.anchor) %>
 </footer>
 </article>
 <% end %>

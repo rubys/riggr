@@ -1,6 +1,6 @@
 <article>
 <header>
-<h3><%= @post.title %></h3>
+<h3><%= link_to @post.title, post_url(@post) %></h3>
 <hr/><time title="GMT" datetime="<%= @post.created_at.iso8601 %>"><%=
 @post.created_at %></time>
 </header>
@@ -19,7 +19,7 @@
 </header>
 <div class="comment">
 <hr/>
-<a id="<%= comment.slug %>"></a>
+<a id="<%= comment.anchor %>"></a>
 <%= comment_title(comment) %>
 <%= comment.content %>
 </div>
