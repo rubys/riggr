@@ -137,7 +137,7 @@ class PostTest < ActiveSupport::TestCase
       bar
     EOF
 
-    assert_equal 'foo', @post.summary
+    assert_equal "foo\n", @post.summary
     assert_equal nil, @post.svg
     assert_equal "bar\n", @post.content
 
@@ -189,7 +189,7 @@ class PostTest < ActiveSupport::TestCase
       bar
     EOF
 
-    assert_equal 'foo <u>bar</u>', @post.summary
+    assert_equal "foo <u>bar</u>\n", @post.summary
     assert_equal svgtext, @post.svg
     assert_equal "bar\n", @post.content
 

@@ -28,15 +28,17 @@ module BlogHelper
     date = comment.created_at.strftime('%Y-%m-%d')
     if @last_header_date != date
       @last_header_date = date
+      "<header>\n" +
       "<h2><time title='GMT' datetime='#{date}'>" +
-        "#{comment.created_at.strftime('%a %d %b %Y')}</time></h2>"
+        "#{comment.created_at.strftime('%a %d %b %Y')}</time></h2>\n" +
+      "</header>\n"
     end
   end
 
   def comment_title(comment)
     @post_title ||= comment.post.title
     if comment.title != @post_title
-      "<h3>#{comment.title}</h3>"
+      "<h3>#{comment.title}</h3>\n"
     end
   end
 

@@ -5,23 +5,20 @@
 @post.created_at %></time>
 </header>
 <%= @post.scaled_svg %>
-<%= @post.content %>
+<%= @post.content -%>
 <footer>
 </footer>
 </article>
 
 <a id="comments"/>
-
 <% for comment in @comments %>
 <article>
-<header>
-<%= comment_header(comment) %>
-</header>
+<%= comment_header(comment) -%>
 <div class="comment">
 <hr/>
 <a id="<%= comment.anchor %>"></a>
-<%= comment_title(comment) %>
-<%= comment.content %>
+<%= comment_title(comment) -%>
+<%= comment.content -%>
 </div>
 </article>
 <% end %>
