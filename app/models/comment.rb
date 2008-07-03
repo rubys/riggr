@@ -4,7 +4,7 @@ class Comment < ActiveRecord::Base
 
   def self.import! filename
     comment = Comment.new
-    comment.created_at = File.stat(filename).mtime
+    comment.created_at = File.stat(filename).mtime.utc
     name = File.basename(filename).gsub(/\.cmt/,'')
     comment.slug = name
     if name =~ /^(\d+)-/

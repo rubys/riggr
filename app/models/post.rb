@@ -8,7 +8,7 @@ class Post < ActiveRecord::Base
       post = Post.new
       title = file.gets.strip
       post.title = title unless title.empty?
-      post.created_at = file.mtime
+      post.created_at = file.mtime.utc
       name = File.basename(filename)
       if name =~ /^(\d+)\.txt/
         post.alt = $1.to_i
