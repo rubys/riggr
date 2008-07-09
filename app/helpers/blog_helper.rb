@@ -1,8 +1,8 @@
 module BlogHelper
   def post_url(post, overrides={})
     options = {:year => post.created_at.year,
-      :month => post.created_at.month, :day => post.created_at.day,
-      :slug => post.slug}
+      :month => '%0.2d' % post.created_at.month,
+      :day => '%0.2d' % post.created_at.day, :slug => post.slug}
     date_url(options.update(overrides))
   end
 
