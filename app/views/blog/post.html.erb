@@ -11,14 +11,18 @@
 </article>
 
 <a id="comments"/>
-<% for comment in @comments %>
+<% for comment in @comments -%>
+<%= section_header(comment) %>
 <article>
-<%= comment_header(comment) -%>
-<div class="comment">
-<hr/>
 <a id="<%= comment.anchor %>"></a>
+<aside>
+<%= comment.author[:name] %>
+</aside>
 <%= comment_title(comment) -%>
 <%= comment.content -%>
-</div>
+ at <a href="<%= comment_url(comment) %>"><time title="GMT" datetime="<%=
+ comment.created_at.iso8601 %>"><%=
+ comment.created_at.strftime("%H:%M:%S") %></time></a>
 </article>
-<% end %>
+<% end -%>
+<%= close_section %>

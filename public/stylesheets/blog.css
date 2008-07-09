@@ -23,7 +23,7 @@ h2 {
   border-radius: 1em;
 }
 
-article header {
+body > article header {
   font-size: 120%;
   margin-top: 1.4em;
   margin-left: -0.2em;
@@ -34,8 +34,15 @@ article header {
   clear: both;
 }
 
-article header h3 {
+body > article header h3 {
   margin: 0;
+  text-indent: -28px;
+}
+
+section article header h3 {
+  margin: 0 0 1em 0;
+  padding-left: 2.4em;
+  text-indent: -28px;
 }
 
 article header hr {
@@ -76,10 +83,6 @@ input, textarea {
   -webkit-border-radius: .9em;
   -moz-border-radius: 1em;
   border-radius: 1em;
-}
-
-p {
-  margin-top: 0;
 }
 
 /* ------------------- links ------------------ */
@@ -182,7 +185,7 @@ body > header form {
   margin-bottom: -0em;
   padding: 0.4em 0.4em 0.2em 0em;
   background-color: #039;
-  -khtml-border-radius: 1em;
+  -webkit-border-radius: 1em;
   -moz-border-radius: 1em;
   border-radius: 1em;
 }
@@ -221,13 +224,32 @@ body > header p {
 
 /* --------------- center area --------------- */
 
-article {
+section article p {
+  margin-top: 0;
+  padding: 0;
+  clear: none;
+}
+
+section, article {
   display: block;
   line-height: 1.4;
   color: #000;
   margin: 0em 13em 1em 4em;
   z-index: 0;
   padding-left: 1.5em;
+}
+
+section article header h3 {
+  margin-left: -1em;
+}
+
+section article aside {
+  margin: -1.1em -1.1em 0 0;
+  padding : 0.5em;
+  -webkit-border-radius: 1em;
+  -moz-border-radius: 0 1em 0 1em;
+  background-color:#CCD;
+  float: right;
 }
 
 .excerpt {
@@ -242,7 +264,7 @@ article {
   background-color: #F00;
   margin: 1.5em 1.5em;
   padding: 1em 1em 0em 1em;
-  -khtml-border-radius: 4em;
+  -webkit-border-radius: 4em;
   -moz-border-radius: 4em;
   border-radius: 4em;
 }
@@ -256,16 +278,14 @@ article {
   margin-bottom: 1em;
 }
 
-.comment, .livepreview {
+section article, .livepreview {
   border-width: 1px;
-  border-style: dashed;
+  border-style: outset;
   font-weight: normal;
   margin: 1em 1.5em;
   padding: 1em 1em;
   -webkit-border-radius: 1em;
-  -khtml-border-radius: 2em;
   -moz-border-radius: 2em;
-  -o-border-radius: 2em;
   border-radius: 2em;
 }
 
@@ -343,7 +363,7 @@ ins {
 
 /* --------------- right bar --------------- */
 
-aside {
+body > aside {
   background-color: #CCD;
   color: #000;
   position: fixed;
@@ -353,9 +373,7 @@ aside {
   width: 10em;
   z-index: 2;
   -webkit-border-radius: 1em;
-  -khtml-border-radius: 1em;
   -moz-border-radius: 1em;
-  -o-border-radius: 1em;
   border-radius: 1em;
 }
 

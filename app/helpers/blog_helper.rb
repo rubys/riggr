@@ -24,21 +24,29 @@ module BlogHelper
     link_to text, post_url(post, :anchor=>anchor)
   end
 
-  def comment_header(comment)
+  def section_header(comment)
     date = comment.created_at.strftime('%Y-%m-%d')
     if @last_header_date != date
+      section = "<section>\n"
+      section = "</section>\n\n" + section if @last_header_date
       @last_header_date = date
-      "<header>\n" +
+      "#{section}<header>\n" +
       "<h2><time title='GMT' datetime='#{date}'>" +
         "#{comment.created_at.strftime('%a %d %b %Y')}</time></h2>\n" +
       "</header>\n"
+    else
+      "\n<hr/>\n"
     end
+  end
+
+  def close_section
+    "</section>\n" if @last_header_date
   end
 
   def comment_title(comment)
     @post_title ||= comment.post.title
     if comment.title != @post_title
-      "<h3>#{comment.title}</h3>\n"
+      "<header><h3>#{comment.title}</h3></header>\n"
     end
   end
 
