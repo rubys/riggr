@@ -16,8 +16,12 @@ Date.parseRFC3339 = function (string) {
 function localizeDates() {
   var xhtml = "http://www.w3.org/1999/xhtml";
   var times = document.getElementsByTagNameNS(xhtml,'time');
+  var sections = document.getElementsByTagNameNS(xhtml,'section');
   var lastdate = '';
   var now = new Date();
+  var top = sections[0];
+  var snapshot = new Array();
+  for (var i=0; i<sections.length; i++) snapshot[i] = sections[i];
 
   for (var i=0; i<times.length; i++) {
     if (times[i].getAttribute('title') == "GMT") {
@@ -41,33 +45,31 @@ function localizeDates() {
 
       // insert/remove date headers to reflect date in local time zone
       var parent = times[i];
-      while (parent && parent.nodeName != 'div') parent=parent.parentNode;
-      if (parent && parent.getAttribute('class')=='comment') {
-        sibling = parent.previousSibling;
-        while (sibling && sibling.nodeType != 1) {
-           sibling = sibling.previousSibling;
-        }
-
-        var header = date.toLocaleDateString();
-        var datetime = times[i].getAttribute('datetime').substring(0,10);
-        if (sibling && sibling.nodeName.toLowerCase() == 'h2') {
-          if (lastdate == header) {
-            sibling.parentNode.removeChild(sibling);
-          } else {
-            sibling.childNodes[0].textContent = header;
-            sibling.childNodes[0].setAttribute('datetime',datetime);
-          }
-        } else if (lastdate != header) {
+      while (parent && parent.nodeName != 'article') parent=parent.parentNode;
+      if (parent && parent.parentNode.nodeName=='section') {
+        var displayDate = date.toLocaleDateString();
+        if (displayDate != lastdate) {
+          section = document.createElementNS(xhtml, 'section');
+          var header = document.createElementNS(xhtml, 'header');
           var h2 = document.createElementNS(xhtml, 'h2');
           var time = document.createElementNS(xhtml, 'time');
+          var datetime = times[i].getAttribute('datetime').substring(0,10);
           time.setAttribute('datetime',datetime);
-          time.appendChild(document.createTextNode(header));
+          time.appendChild(document.createTextNode(displayDate));
           h2.appendChild(time);
-          parent.parentNode.insertBefore(h2, parent);
+          header.appendChild(h2);
+          section.appendChild(header);
+          lastdate = displayDate;
+          top.parentNode.insertBefore(section, top);
         }
-        lastdate = header;
+        section.appendChild(parent);
       }
     }
+  }
+
+  // remove original sections
+  for (var i=0; i<snapshot.length; i++) {
+    snapshot[i].parentNode.removeChild(snapshot[i]);
   }
 }
 

@@ -16,11 +16,15 @@ h2 {
   color: #FE1;
   font-size: 100%;
   font-weight: bold;
-  margin: 0.7em 0.7em 0.1em 0.7em;
+  margin: 0.7em 0 0.1em 0;
   padding: .25em 1em .25em 1em;
   -webkit-border-radius: .7em;
   -moz-border-radius: 1em;
   border-radius: 1em;
+}
+
+aside h2 {
+  margin: 0.7em 0.7em 0.1em 0.7em;
 }
 
 body > article header {
@@ -52,7 +56,7 @@ article header hr {
   margin-left: 2px;
 }
 
-article header time {
+header time {
   font-size:small;
   font-weight: normal;
   display: block;
@@ -282,7 +286,7 @@ section article, .livepreview {
   border-width: 1px;
   border-style: outset;
   font-weight: normal;
-  margin: 1em 1.5em;
+  margin: 1em 0;
   padding: 1em 1em;
   -webkit-border-radius: 1em;
   -moz-border-radius: 2em;
