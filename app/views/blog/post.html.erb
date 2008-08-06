@@ -4,13 +4,13 @@
 <hr/><time title="GMT" datetime="<%= @post.created_at.iso8601 %>"><%=
 @post.created_at %></time>
 </header>
-<%= @post.scaled_svg %>
+<%= @post.scaled_svg unless request.path =~ /\.html$/%>
 <%= @post.content -%>
 <footer>
 </footer>
 </article>
 
-<a id="comments"/>
+<a id="comments"></a>
 <% for comment in @comments -%>
 <%= section_header(comment) %>
 <article>
