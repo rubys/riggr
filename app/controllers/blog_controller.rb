@@ -1,7 +1,9 @@
 class BlogController < ApplicationController
   before_filter :set_content_type
   def set_content_type
-    response.headers['content-type'] = 'application/xhtml+xml'
+    if request.path !~ /\.html$/
+      response.headers['content-type'] = 'application/xhtml+xml'
+    end
   end
 
 
