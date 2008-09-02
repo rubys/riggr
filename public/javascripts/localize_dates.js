@@ -43,6 +43,10 @@ function localizeDates() {
         times[i].textContent = date.toLocaleString();
       }
 
+      // Make webkit time zone information more compact
+      times[i].textContent = 
+        times[i].textContent.replace(/GMT(-\d\d\d\d) \(.*\)$/, '$1');
+
       // insert/remove date headers to reflect date in local time zone
       var parent = times[i];
       while (parent && parent.nodeName != 'article') parent=parent.parentNode;
