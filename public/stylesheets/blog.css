@@ -250,7 +250,8 @@ section article header h3 {
 section article aside {
   margin: -1.1em -1.1em 0 0;
   padding : 0.5em;
-  -webkit-border-radius: 1em;
+  -webkit-border-top-right-radius: 1em;
+  -webkit-border-bottom-left-radius: 1em;
   -moz-border-radius: 0 1em 0 1em;
   background-color:#CCD;
   float: right;
@@ -438,21 +439,25 @@ table caption a {
 }
 
 .calendar th:first-child {
+  -webkit-border-top-left-radius: 1em;
   -moz-border-radius: 1em 0 0 0;
   border-radius: 1em 0 0 0;
 }
 
 .calendar th:last-child {
+  -webkit-border-top-right-radius: 1em;
   -moz-border-radius: 0 1em 0 0;
   border-radius: 0 1em 0 0;
 }
 
 .calendar tr:last-child > td:first-child {
+  -webkit-border-bottom-left-radius: 1em;
   -moz-border-radius: 0 0 0 1em;
   border-radius: 0 0 0 1em;
 }
 
 .calendar tr:last-child > td:last-child {
+  -webkit-border-bottom-right-radius: 1em;
   -moz-border-radius: 0 0 1em 0;
   border-radius: 0 0 1em 0;
 }
@@ -462,6 +467,7 @@ td:hover a.day {
 }
 
 .day {
+  -webkit-border-bottom-left-radius: 0.5em;
   -moz-border-radius: 0 0 0 0.5em;
   border-radius: 0.2em;
   font-family: verdana, arial, sans-serif;
