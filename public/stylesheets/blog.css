@@ -12,7 +12,7 @@ body {
 
 
 h2 {
-  background: #039;
+  background: url('rc-039-FFF.svg') #039;
   color: #FE1;
   font-size: 100%;
   font-weight: bold;
@@ -248,12 +248,14 @@ section article header h3 {
 }
 
 section article aside {
+  background: url('rc-tr-bl-CCD-FFF.svg') #CCD;
   margin: -1.1em -1.1em 0 0;
   padding : 0.5em;
+  min-width: 8em;
+  text-align: center;
   -webkit-border-top-right-radius: 1em;
   -webkit-border-bottom-left-radius: 1em;
   -moz-border-radius: 0 1em 0 1em;
-  background-color:#CCD;
   float: right;
 }
 
@@ -289,8 +291,10 @@ section article, .livepreview {
   font-weight: normal;
   margin: 1em 0;
   padding: 1em 1em;
-  -webkit-border-radius: 1em;
-  -moz-border-radius: 2em;
+  -webkit-border-top-right-radius: 2em;
+  -webkit-border-top-left-radius: 2em;
+  -webkit-border-bottom-left-radius: 2em;
+  -moz-border-radius: 2em 2em 0 2em;
   border-radius: 2em;
 }
 
@@ -369,7 +373,7 @@ ins {
 /* --------------- right bar --------------- */
 
 body > aside {
-  background-color: #CCD;
+  background: url('rc-CCD-FFF.svg') #CCD;
   color: #000;
   position: fixed;
   right: 1em;
@@ -398,6 +402,9 @@ nav a {
   font-weight: normal;
 }
 
+aside h2 {
+  background: url('rc-039-CCD.svg') #039;
+}
 
 .calendar {
   width: 98%;
@@ -407,18 +414,11 @@ nav a {
 
 table.calendar {
   background-color: #ccd;
+  -webkit-border-radius: 1.2em;
   -moz-border-radius: 1.2em;
 }
 
-table caption {
-  color: white;
-  border: 10px;
-  margin-bottom: 10px;
-  font-size: xx-large;
-}
-
 table caption a {
-  color: white;
   border: 10px;
   margin-bottom: 10px;
   font-size: xx-large;
