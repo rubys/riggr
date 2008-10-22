@@ -13,7 +13,7 @@ module BlogHelper
   def comment_link(post, anchor='comments')
     comments = post.comments.size
 
-    text = (comments == 0 ? 'Add comment' : pluralize(comments, 'comments'))
+    text = (comments == 0 ? 'Add comment' : pluralize(comments, 'comment'))
 
     link_to text, post_url(post, :anchor=>anchor)
   end
