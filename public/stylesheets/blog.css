@@ -11,7 +11,6 @@ body {
   margin-right : 0; 
 }
 
-
 h2 {
   background: url('rc-039-FFF.svg') #039;
   color: #FE1;
@@ -71,7 +70,12 @@ header time {
   font-size:small;
   font-weight: normal;
   display: block;
-  text-align: right
+  text-align: right;
+}
+
+article footer {
+  display: block;
+  text-align: right;
 }
 
 h3:before {
@@ -340,11 +344,65 @@ li > a > svg {
   margin-right: 0.3em;
 }
 
-footer {
+body > footer {
+  color: #CC0;
+  font-size: 70%;
+  position: absolute;
+  top: 2.9em;
+  left: 10em;
+}
+
+footer ul {
+  list-style-type: none;
+}
+
+footer > ul > li {
+  display: inline;
+  padding: 0.5em;
+  float: left;
+}
+
+footer > ul > ul {
+  font-size: 130%;
+}
+
+footer ul ul {
+  float: left;
+  display: none;
+}
+
+footer ul li:hover ul {
   display: block;
-  margin-top: 0;
-  clear: both;
-  text-align: right;
+  position: absolute;
+  padding: 0.5em;
+  width: 7em;
+  background-color: #FFA;
+  border: 1px solid #48C;
+  border-top: 0;
+  color: #00F;
+  border-style: outset;
+  -webkit-border-bottom-left-radius: .7em;
+  -webkit-border-bottom-right-radius: .7em;
+  -moz-border-radius: 0 0 1em 1em;
+  z-index: 2;
+}
+
+footer ul li:hover ul ul {
+  display: none;
+  z-index: 1;
+}
+
+footer ul li:hover ul li:hover ul {
+  margin-left: 6em;
+  margin-top: -1.6em;
+  width: 9em;
+  -webkit-border-radius: .7em;
+  -moz-border-radius: 1em;
+  display: block;
+}
+
+footer ul ul li {
+  margin-bottom: 0.5em;
 }
 
 .spellcheck {
