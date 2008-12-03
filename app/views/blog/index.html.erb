@@ -5,7 +5,7 @@
 <hr/><time title="GMT" datetime="<%= post.created_at.iso8601 %>"><%=
 post.created_at %></time>
 </header>
-<%= post.scaled_svg unless request.path =~ /\.html$/%>
+<%= post.scaled_svg %>
 <%= (post==@posts.first || !post.summary) ? post.content : post.summary -%>
 <footer>
 <%= comment_link(post) %>
