@@ -25,6 +25,9 @@ h2 {
 
 aside h2 {
   margin: 0.7em 0.7em 0.1em 0.7em;
+  background: url('rc-039-CCD.svg') #039;
+  font-family: Georgia, "Gill Sans", sans-serif;
+  font-style: italic;
 }
 
 article, body > article {
@@ -198,11 +201,11 @@ body > header form {
   right: 1em;
   text-align: center;
   position: absolute;
-  width: 10em;
+  width: 9em;
   text-align: right;
-  margin-top: 0.2em;
+  margin-top: 0.1em;
   margin-right: 0.2em;
-  margin-bottom: -0em;
+  margin-bottom: 0em;
   padding: 0.4em 0.4em 0.2em 0em;
   background-color: #039;
   -webkit-border-radius: 1em;
@@ -256,7 +259,7 @@ section, article {
   color: #000;
   margin: 0em 13em 1em 4em;
   z-index: 0;
-  padding-left: 1.5em;
+  padding-left: 1em;
 }
 
 section article header h3 {
@@ -474,10 +477,6 @@ nav ul {
 
 nav a {
   font-weight: normal;
-}
-
-aside h2 {
-  background: url('rc-039-CCD.svg') #039;
 }
 
 .calendar {
