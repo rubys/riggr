@@ -65,7 +65,8 @@ class PostTest < ActiveSupport::TestCase
   def test_import
     # import a test file
     open('tmp/import.txt','w') { |file| file.write("loren\n\ipsum\n") }
-    File.utime @post.created_at, @post.created_at, 'tmp/import.txt'
+    localtime = @post.created_at.localtime
+    File.utime localtime, localtime, 'tmp/import.txt'
     Post.import! 'tmp/import.txt'
 
     # verify results

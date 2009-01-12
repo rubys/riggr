@@ -32,7 +32,8 @@ class CommentTest < ActiveSupport::TestCase
   def test_import
     # import a test file
     open('tmp/import_42.cmt','w') { |file| file.write("loren\n\ipsum\n") }
-    File.utime @comment.created_at, @comment.created_at, 'tmp/import_42.cmt'
+    localtime = @comment.created_at.localtime
+    File.utime localtime, localtime, 'tmp/import_42.cmt'
     Comment.import! 'tmp/import_42.cmt'
 
     # verify results
