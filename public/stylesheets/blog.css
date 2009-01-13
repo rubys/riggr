@@ -79,6 +79,7 @@ header time {
 article footer {
   display: block;
   text-align: right;
+  clear: right;
 }
 
 h3:before {
@@ -447,7 +448,7 @@ ins {
 /* --------------- right bar --------------- */
 
 body > aside {
-  background: url('rc-CCD-FFF.svg') #CCE;
+  background: #CCE;
   color: #000;
   position: fixed;
   right: 1em;
