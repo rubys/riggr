@@ -53,7 +53,7 @@ class Post < ActiveRecord::Base
       gsub(/\W/,' ').strip.gsub(/\s+/,'-')
   end
 
-  def scaled_svg scale=0.05
+  def scaled_svg options={}
     return unless svg
     height = width = viewBox = nil
     decl, rest = svg.split('>',2)
@@ -65,9 +65,13 @@ class Post < ActiveRecord::Base
     end
     viewBox = [0,0,width,height] if width and height and !viewBox
 
-    "#{decl} viewBox='#{viewBox.join(' ')}' " + 
+    scale = options[:scale] || 0.05
+    output = "#{decl} viewBox='#{viewBox.join(' ')}' " + 
       "width='#{(viewBox[2]*scale).to_s.sub(/\.0$/,'')}em' " +
       "height='#{(viewBox[3]*scale).to_s.sub(/\.0$/,'')}em'>" +
       "#{rest}"
+
+    output.gsub! /<(\w+)([^<]*)\/>/, '<\1\2></\1>' if options[:html]
+    output
   end
 end

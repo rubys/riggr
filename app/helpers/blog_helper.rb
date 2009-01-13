@@ -58,4 +58,8 @@ module BlogHelper
       xml.instance_eval "#{field} data"
     end
   end
+
+  def response_html?
+    response.headers['content-type'] != 'application/xhtml+xml'
+  end
 end
