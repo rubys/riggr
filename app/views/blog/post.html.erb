@@ -6,8 +6,6 @@
 </header>
 <%= @post.scaled_svg :html => response_html? %>
 <%= @post.content -%>
-<footer>
-</footer>
 </article>
 
 <a id="comments"></a>
@@ -19,10 +17,10 @@
 <%= comment.author[:name] %>
 </aside>
 <%= comment_title(comment) -%>
-<%= comment.content -%>
+<%= comment.content.sub(/(.*)\n?\Z/, '<footer>\1') -%>
  at <a href="<%= comment_url(comment) %>"><time title="GMT" datetime="<%=
  comment.created_at.iso8601 %>"><%=
- comment.created_at.strftime("%H:%M:%S") %></time></a>
+ comment.created_at.strftime("%H:%M:%S") %></time></a></footer>
 </article>
 <% end -%>
 <%= close_section %>
