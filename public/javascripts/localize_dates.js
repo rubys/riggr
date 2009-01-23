@@ -14,72 +14,60 @@ Date.parseRFC3339 = function (string) {
 
 // Localize the display of <time> elements
 function localizeDates() {
-  var xhtml = "http://www.w3.org/1999/xhtml";
-  var times = document.getElementsByTagNameNS(xhtml,'time');
-  var sections = document.getElementsByTagNameNS(xhtml,'section');
+  var sections = $('section');
   var lastdate = '';
   var now = new Date();
-  var top = sections[0];
-  var snapshot = new Array();
-  for (var i=0; i<sections.length; i++) snapshot[i] = sections[i];
 
-  for (var i=0; i<times.length; i++) {
-    if (times[i].getAttribute('title') == "GMT") {
-      var date = new Date(Date.parseRFC3339(times[i].getAttribute('datetime')));
+  $('time').each (function() {
+    var time = $(this);
+
+    if (time.attr('title') == "GMT") {
+      var date = new Date(Date.parseRFC3339(time.attr('datetime')));
       if (!date.getTime()) return;
 
-      // replace title attribute and textContent value with localized versions
-      if (times[i].textContent.length < 10 || now-date < 86400000) {
+      // replace title attribute and text value with localized versions
+      if (time.text().length < 10 || now-date < 86400000) {
         // time only
-        times[i].setAttribute('title', date.toUTCString());
-        times[i].textContent = date.toLocaleTimeString();
-      } else if (times[i].getAttribute('datetime').length <= 16) {
+        time.attr('title', date.toUTCString());
+        time.text(date.toLocaleTimeString());
+      } else if (time.attr('datetime').length <= 16) {
         // date only
-        times[i].removeAttribute('title');
-        times[i].textContent = date.toLocaleDateString();
+        time.removeAttr('title');
+        time.text(date.toLocaleDateString());
       } else {
         // full datetime
-        times[i].setAttribute('title', times[i].textContent + ' GMT');
-        times[i].textContent = date.toLocaleString();
+        time.attr('title', time.textContent + ' GMT');
+        time.text(date.toLocaleString());
       }
 
       // Make webkit time zone information more compact
-      times[i].textContent = 
-        times[i].textContent.replace(/ GMT(-\d\d\d\d) \(.*\)$/, '');
+      time.text(time.text().replace(/ GMT(-\d\d\d\d) \(.*\)$/, ''));
 
       // insert/remove date headers to reflect date in local time zone
-      var parent = times[i];
-      while (parent && parent.nodeName != 'article') parent=parent.parentNode;
-      if (parent && parent.parentNode.nodeName=='section') {
-        var displayDate = date.toLocaleDateString();
-        if (displayDate != lastdate) {
-          section = document.createElementNS(xhtml, 'section');
-          var header = document.createElementNS(xhtml, 'header');
-          var h2 = document.createElementNS(xhtml, 'h2');
-          var time = document.createElementNS(xhtml, 'time');
-          var datetime = times[i].getAttribute('datetime').substring(0,10);
-          time.setAttribute('datetime',datetime);
-          time.appendChild(document.createTextNode(displayDate));
-          h2.appendChild(time);
-          header.appendChild(h2);
-          section.appendChild(header);
-          lastdate = displayDate;
-          top.parentNode.insertBefore(section, top);
+      time.parents('article').each(function() {
+        if (this.parentNode.tagName.toLowerCase() == 'section') {
+          var displayDate = date.toLocaleDateString();
+          if (displayDate != lastdate) {
+            var datetime = time.attr('datetime').substring(0,10);
+            datetime = '<time datetime="'+datetime+'">'+displayDate+'</time>';
+            var header = '<header><h2>'+datetime+'</h2></header>'
+            section = $('<section>'+header+'</section>');
+            lastdate = displayDate;
+            section.insertBefore(sections[0]);
+          }
+          section.append(this);
         }
-        section.appendChild(parent);
-      }
+      });
     }
-  }
+  });
 
   // remove original sections
-  for (var i=0; i<snapshot.length; i++) {
-    snapshot[i].parentNode.removeChild(snapshot[i]);
-  }
+  sections.remove();
 }
 
-if (document.addEventListener) {
-  document.addEventListener("DOMContentLoaded", localizeDates, false);
-}
+$(document).ready(function() {
+  localizeDates();
+})
 
 // allow IE to recognize HTMl5 elements
 if (!document.createElementNS) {
