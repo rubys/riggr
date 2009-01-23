@@ -65,7 +65,7 @@ class Post < ActiveRecord::Base
     end
     viewBox = [0,0,width,height] if width and height and !viewBox
 
-    scale = options[:scale] || 0.05
+    scale = 0.05 * (options[:scale] || 1)
     output = "#{decl} viewBox='#{viewBox.join(' ')}' " + 
       "width='#{(viewBox[2]*scale).to_s.sub(/\.0$/,'')}em' " +
       "height='#{(viewBox[3]*scale).to_s.sub(/\.0$/,'')}em'>" +

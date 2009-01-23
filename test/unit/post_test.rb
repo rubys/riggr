@@ -233,7 +233,7 @@ class PostTest < ActiveSupport::TestCase
       <svg #{SVGNS} width='120' height="80"></svg>
     EOF
 
-    assert_equal <<-EOF.strip, @post.scaled_svg(:scale => 0.02)
+    assert_equal <<-EOF.strip, @post.scaled_svg(:scale => 0.4)
       <svg #{SVGNS} viewBox='0 0 120 80' width='2.4em' height='1.6em'></svg>
     EOF
   end
