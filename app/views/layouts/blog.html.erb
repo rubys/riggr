@@ -33,16 +33,22 @@
 <nav>
 <ul>
 <li><a href="http://en.wikipedia.org/wiki/Sam_Ruby">About</a></li>
+<% if response_html? -%>
+<li><a href="/blog/comments/index.html">Comments</a></li>
+<% else -%>
 <li><a href="/blog/comments">Comments</a></li>
+<% end -%>
 <li><a id="navbar_register" href="/blog/registry/">Register</a></li>
 <li><a href="/stats/">Statistics</a></li>
+<% if response_html? -%>
+<li><a href="/blog/archives/index.html">Archives</a></li>
+<% else -%>
 <li><a href="/blog/archives/">Archives</a></li>
+<% end -%>
 <li><a href="http://planet.intertwingly.net/">Planet</a></li>
 <li><a href="/code/">Code</a></li>
-<li><a
-href="http://www.pragprog.com/titles/rails3/agile-web-development-with-rails-third-edition">Rails</a></li>
-<li><a
-href="http://www.oreilly.com/catalog/9780596529260/">RESTful</a></li>
+<li><a href="http://www.pragprog.com/titles/rails3/agile-web-development-with-rails-third-edition">Rails</a></li>
+<li><a href="http://www.oreilly.com/catalog/9780596529260/">RESTful</a></li>
 <li><a href="/blog/2005/05/16/Disclaim-This">Disclaimer</a></li>
 </ul>
 </nav>

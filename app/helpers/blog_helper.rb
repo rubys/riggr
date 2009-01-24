@@ -3,7 +3,12 @@ module BlogHelper
     options = {:year => post.created_at.year,
       :month => '%0.2d' % post.created_at.month,
       :day => '%0.2d' % post.created_at.day, :slug => post.slug}
-    date_url(options.update(overrides))
+    if response_html?
+      options['format'] = 'html'
+      format_date_url(options.update(overrides))
+    else
+      date_url(options.update(overrides))
+    end
   end
 
   def comment_url(comment)

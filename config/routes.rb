@@ -1,10 +1,12 @@
 ActionController::Routing::Routes.draw do |map|
   map.date "blog/:year/:month/:day/:slug",
-    :controller => "blog", :action => "post"
-  map.connect "blog/:year/:month/:day/:slug.:format",
     :controller => "blog", :action => "post",
     :requirements => { :year => /20\d\d/, :month => /[01]?\d/,
-      :day => /[0123]?\d/, :format => /html/}
+      :day => /[0123]?\d/}
+  map.format_date "blog/:year/:month/:day/:slug.:format",
+    :controller => "blog", :action => "post",
+    :requirements => { :year => /20\d\d/, :month => /[01]?\d/,
+      :day => /[0123]?\d/, :format => /html|atom/}
   map.archives "blog/archives/:year/:month/",
     :controller => "blog", :action => "archives",
     :requirements => { :year => /20\d\d/, :month => /[01]?\d/ }
