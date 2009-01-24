@@ -6,7 +6,7 @@ html {
 }
 
 body {
-  background-color: #EEF;
+  background-color: #dfe5f2;
   margin-left : 0; 
   margin-right : 0; 
 }
@@ -452,7 +452,7 @@ ins {
 /* --------------- right bar --------------- */
 
 body > aside {
-  background: #DDF;
+  background: #cfd9ec;
   color: #000;
   position: fixed;
   right: 1em;
@@ -463,9 +463,9 @@ body > aside {
   -webkit-border-radius: 1em;
   -moz-border-radius: 1em;
   border-radius: 1em;
-  border-width: 2px;
+  border-width: 1px;
   border-style: outset;
-  border-color: #00F;
+  border-color: #bfcce5;
 }
 
 nav {
