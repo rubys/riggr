@@ -268,7 +268,7 @@ section article header h3 {
 }
 
 section article aside {
-  background: url('rc-tr-bl-CCD-FFF.svg') #CCD;
+  background: url('rc-tr-bl-CCD-FFF.svg') #bfcce5;
   margin: -1.1em -1.1em 0 0;
   padding : 0.5em;
   min-width: 8em;
@@ -452,7 +452,7 @@ ins {
 /* --------------- right bar --------------- */
 
 body > aside {
-  background: #cfd9ec;
+  background-color: #bfcce5;
   color: #000;
   position: fixed;
   right: 1em;
