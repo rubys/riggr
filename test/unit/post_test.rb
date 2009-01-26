@@ -254,4 +254,15 @@ class PostTest < ActiveSupport::TestCase
       <svg #{SVGNS} viewBox='0 0 100 100' width='5em' height='5em'><g></g></svg>
     EOF
   end
+  
+  def test_decoding
+    @post.title = "Se&ntilde;or"
+    assert_equal "Se\303\261or", @post.title
+
+    @post.summary = "Se&ntilde;or"
+    assert_equal "Se\303\261or", @post.summary
+
+    @post.content = "Se&ntilde;or"
+    assert_equal "Se\303\261or", @post.content
+  end
 end

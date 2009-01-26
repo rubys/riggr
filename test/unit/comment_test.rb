@@ -90,4 +90,12 @@ class CommentTest < ActiveSupport::TestCase
   ensure
     File.unlink('tmp/import.cmt')
   end
+  
+  def test_decoding
+    @comment.title = "Se&ntilde;or"
+    assert_equal "Se\303\261or", @comment.title
+
+    @comment.content = "Se&ntilde;or"
+    assert_equal "Se\303\261or", @comment.content
+  end
 end

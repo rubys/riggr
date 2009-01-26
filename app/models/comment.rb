@@ -30,6 +30,14 @@ class Comment < ActiveRecord::Base
   rescue
   end
 
+  def title
+    Post::decode @title
+  end
+
+  def content
+    Post::decode @content
+  end
+
   def author
     author = {}
 

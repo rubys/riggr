@@ -2,6 +2,7 @@ class Post < ActiveRecord::Base
   has_many :comments
   attr_accessor :title, :summary, :svg, :content
   FILESTORE = "db/blog/#{RAILS_ENV}"
+  @@coder = HTMLEntities.new
 
   def self.import! filename
     open(filename) do |file|
@@ -51,6 +52,29 @@ class Post < ActiveRecord::Base
     @title = title
     self.slug = @title.gsub("'",'').gsub(/\&#?\w+;/,'').gsub(/<.*?>/,'').
       gsub(/\W/,' ').strip.gsub(/\s+/,'-')
+  end
+
+  def self.decode(string)
+    return unless string
+    string.gsub(/(&\w+;)/) { |entity|
+      if %w[ &amp; &lt; &gt; &quot; &apos; ].include? entity
+        entity
+      else
+        @@coder.decode(entity)
+      end
+    }
+  end
+
+  def title
+    Post::decode @title
+  end
+
+  def content
+    Post::decode @content
+  end
+
+  def summary
+    Post::decode @summary
   end
 
   def scaled_svg options={}
