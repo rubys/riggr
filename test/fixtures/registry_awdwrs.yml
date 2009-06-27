@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyString
+  xmpp: MyString
+  openid: MyString
+  level: MyString
+
+two:
+  name: MyString
+  xmpp: MyString
+  openid: MyString
+  level: MyString

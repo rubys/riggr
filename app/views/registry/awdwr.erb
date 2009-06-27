@@ -1,0 +1,88 @@
+<style>
+#test {position:relative}
+#test #help {display: none}
+#test:hover #help {
+  -moz-border-radius: 1em;
+  display: block; position: absolute; z-index: 1;
+  background-color: #EEE; border: 2px solid #BBB; padding: 10px;
+  bottom: 1.2em; left: 3em; width: 20em;
+  text-align: left;
+}
+article footer {
+  margin: 1em auto;
+}
+.warning {
+  text-align: center;
+  padding: 0.5em 1.5em
+}
+</style>
+
+<article>
+<% if flash[:notice] -%>
+<div class="warning"><%= flash[:notice] %></div>
+<% end -%>
+<header>
+<h3>User Registration</h3>
+</header>
+
+<% form_tag do %>
+<label for="name">Name:</label><br/>
+<input maxlength="50" id="name" name="name" size="75" type="text" value="<%= @record.name %>"/>
+<br/><br/>
+<label for="email">XMPP ID:</label><br/>
+<input maxlength="75" id="email" name="email" size="75" type="text" value="<%= @record.xmpp %>"/>
+<br/><br/>
+<label for="openid_url">OpenID URI:</label><br/>
+<input maxlength="100" id="openid_url" name="openid_url" size="75" type="text" value="<%= @record.openid %>"/>
+<br/><br/>
+<label for="level">Subscription Level:</label></br>
+<br/></br/>
+<select name="level">
+<%= options_for_select(%w(none fail all), @record.level) %>
+</select>
+
+<h3>Instructions:</h3>
+<ul>
+<li>In order to participate, you need both an XMPP (e.g., Jabber, Gtalk) ID and
+and OpenID identity.</li>
+<li>Tests are run every three hours if there has been any change to the Rails
+git repository since the last run.</li>
+<li>You can subscribe to get notifications on every run, only on failures, or
+no notification at all.</li>
+<li>It is best to test notification before subscribing.  Use the button below
+to send a message to yourself.</li>
+</ul>
+
+<footer>
+<span id="test">
+<div id="help">
+Press this button to receive a test
+<a href="http://www.xmpp.org/extensions/xep-0071.html">XHTML-IM</a>
+message from
+<code id="xuser">intertwingly@gmail.com</code>.&#160;
+You may need to add this id as a &#8216;<em>buddy</em>&#8217; first.
+</div> <!-- help -->
+<input name="test" type="submit" value="Test XMPP"/>
+</span> <!-- test -->
+
+<input name="submit" type="submit" value="Save Changes"/>
+</footer>
+<% end -%>
+
+</article>
+<script>
+servers = <%= 
+  @servers.reject! {|key,value| value['class']=='private'}
+  @servers.map {|key,value| @servers[key] = value['user']}
+  @servers.to_json %>;
+
+$('input[name=test]').mouseover(function() {
+  var dest = $('#email').val();
+  var at = dest.indexOf('@');
+  if (at >=0) dest = dest.substr(at+1);
+  var slash = dest.indexOf('/');
+  if (slash >=0) dest = dest.substr(0,slash);
+
+  $('#xuser').html(servers[dest] || servers['DEFAULT']);
+});
+</script>

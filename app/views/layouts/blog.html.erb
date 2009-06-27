@@ -16,7 +16,7 @@
 <body>
 
 <header>
-<h1><%= link_to 'intertwingly', url_for(:action=>:index) %></h1>
+<h1><%= link_to 'intertwingly', url_for(:controller=>:blog, :action=>:index) %></h1>
 <form method="get" action="http://intertwingly.net/blog/">
 <label for="q">Search</label>
 <input type="text" id="q" name="q" value=""/>
